@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .table {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        thead th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h4>Top Orders</h4>
+    <table class="table table-bordered mt-4">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Order ID</th>
+            <th>Product Name</th>
+            <th>Price (USD)</th>
+            <th>Product Type</th>
+            <th>Order Date</th>
+            <th>Quantity</th>
+            <th>Total Price (USD)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, iterStat : ${topOrders.content}">
+            <td th:text="${iterStat.index + 1}">1</td>
+            <td th:text="${order.orderId}">101</td>
+            <td th:text="${order.product.productName}">Sample Product</td>
+            <td th:text="${order.product.price}">99.99</td>
+            <td th:text="${order.product.status}">Available</td>
+            <td th:text="${order.formattedDate}"></td>
+            <td th:text="${order.quantity}">1</td>
+            <td th:text="${order.getTotalPrice()}">99.99</td>
+            <td>
+                <a th:href="@{/order/edit/{id}(id=${order.orderId})}" class="btn btn-warning">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="#" th:href="@{/order}" class="btn btn-primary">Back to List</a>
+</div>
+</body>
+</html>
